@@ -1,14 +1,26 @@
-<!DOCTYPE html>
-<html lang="ru">
+<!DOCTYPE html>   <!-- Определяет, что документ является HTML5 -->
+<html lang="ru">  <!-- Устанавливает язык документа как русский -->
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CarShopDS</title>
-    <link rel="stylesheet" href="style.css">
+    <meta charset="UTF-8">     <!-- Указывает кодировку символов (UTF-8 поддерживает русский язык) -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">  <!-- Адаптивность для мобильных устройств -->
+    <title>CarShopDS</title>    <!-- Заголовок страницы, отображается на вкладке браузера -->
+    <link rel="stylesheet" href="style.css">  <!-- Подключение файла стилей CSS -->
 </head>
 <body>
-    <h1>CarShopDS - Поиск автомобилей</h1>
+    <div class="panel">      <!-- Контейнер для всей панели с контентом -->
+    <h1>CarShopDS - Поиск автомобилей</h1>  <!-- Заголовок страницы -->
+
+     <!-- Форма для добавления новой машины -->
+     <form id="car-form">
+        <input type="text" id="brand" placeholder="Марка" required>   <!-- Поле ввода марки машины -->
+        <input type="text" id="model" placeholder="Модель" required>  <!-- Поле ввода модели машины -->
+        <input type="number" id="year" placeholder="Год" required>    <!-- Поле ввода года выпуска -->
+        <input type="number" id="price" placeholder="Цена" required>  <!-- Поле ввода цены -->
+        <button type="submit">Добавить машину</button>    <!-- Кнопка для добавления новой машины -->
+    </form>
+
     <ul id="car-list"></ul>   <!--Пустой список, в который script.js добавит машины-->
+    </div>
     <script src="script.js"></script> <!--Подключение JavaScript-файла.-->
 </body>
 </html>
