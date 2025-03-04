@@ -15,10 +15,48 @@ function displayCars() {
     let carList = document.getElementById("car-list");    //Получаем ссылку на HTML-элемент <ul> с id="car-list", в который будем выводить список машин.
     carList.innerHTML = "";       // Очищает список перед обновлением, чтобы не дублировать данные.
    
-    cars.forEach(car => {   //Перебирает массив cars
+    cars.forEach((car, index) => {   //Перебирает массив cars
         let item = document.createElement("li");   // Для каждой машины создает новый <li>
         item.textContent = `${car.brand} ${car.model}, ${car.year} - $${car.price}`;  // Определяет текст: "Марка, Модель, Год - $Цена"
-        carList.appendChild(item);     // Добавляет созданный <li> в список <ul>
+
+        // Кнопка редактирования машины
+        let editButton = document.createElement("button");
+        editButton.textContent = "Редактировать";
+        editButton.style.marginLeft = "10px";
+        editButton.onclick = function () {
+            
+            // Используем prompt для получения новых значений
+            let newBrand = prompt("Введите новую марку", car.brand);
+            let newModel = prompt("Введите новую модель", car.model);
+            let newYear = prompt("Введите новый год выпуска", car.year);
+            let newPrice = prompt("Введите новую цену", car.price);
+
+            // Если пользователь ввёл новые значения, обновляем запись
+            if(newBrand && newModel && newYear && newPrice) {
+                cars[index] = {
+                    brand: newBrand,
+                    model: newModel,
+                    year: Number(newYear),
+                    price: Number(newPrice)
+                };
+                displayCars(); // Обновляем отображение списка
+            }
+        };
+
+        // Кнопка для удаления машины
+        let deleteButton = document.createElement("button");
+        deleteButton.textContent = "Удалить";
+        deleteButton.style.marginLeft = "10px";
+        deleteButton.onclick = function () {
+            deleteCar(index);
+        };
+
+        // Добавляем кнопки редактирования и удаления в элемент списка
+        item.appendChild(editButton);
+        item.appendChild(deleteButton); 
+
+        // Добавляем элемент списка в контейнер
+        carList.appendChild(item);     
     });
 }
 
@@ -28,13 +66,20 @@ function addCar(brand, model, year, price) {
     displayCars(); // Обновляет список
 }
 
-// 3. Функция для поиска машины по марке
+// 3. Функция для удаления машины по индексу
+function deleteCar(index) {
+    cars.splice(index, 1); // Удаляет элемент из массива
+    displayCars(); // Обновляет отображение списка
+}
+
+
+// 4. Функция для поиска машины по марке
 function findCarByBrand(brand) {  // Ищет машины по марке (brand)
     return cars.filter(car => car.brand.toLowerCase() === brand.toLowerCase());  // Отбирает машины, у которых brand совпадает (без учета регистра)
 }
 
 
-// 4. Обработчик отправки формы для добавления новой машины
+// 5. Обработчик отправки формы для добавления новой машины
 document.getElementById('car-form').addEventListener('submit', function(event) {
     event.preventDefault(); // Отменяет стандартное поведение формы (перезагрузку страницы)
     
@@ -50,6 +95,7 @@ document.getElementById('car-form').addEventListener('submit', function(event) {
     // Очищаем форму после отправки
     this.reset();
 });
+
 
 
 // Выводим машины на страницу при загрузке
