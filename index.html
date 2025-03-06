@@ -19,6 +19,38 @@
         <button type="submit">Добавить машину</button>    <!-- Кнопка для добавления новой машины -->
     </form>
 
+        <!-- Элементы управления сортировкой -->
+<div id="sort-controls">
+    <label for="sort-param">Сортировать по: </label>
+    <select id="sort-param">
+        <option value="brand">Марке</option>
+        <option value="model">Модели</option>
+        <option value="year">Году</option>
+        <option value="price">Цене</option>
+    </select>
+    <button id="sort-button">Сортировать</button>
+</div>
+
+
+            <!-- Элементы управления расширенным поиском -->
+        <div id="search-controls">
+            <h2>Расширенный поиск</h2>
+            <label for="search-brand">Марка:</label>
+            <input type="text" id="search-brand" placeholder="Введите марку">
+            <label for="search-model">Модель:</label>
+            <input type="text" id="search-model" placeholder="Введите модель">
+            <label for="min-year">Год от:</label>
+            <input type="number" id="min-year" placeholder="От">
+            <label for="max-year">Год до:</label>
+            <input type="number" id="max-year" placeholder="До">
+            <label for="min-price">Цена от:</label>
+            <input type="number" id="min-price" placeholder="От">
+            <label for="max-price">Цена до:</label>
+            <input type="number" id="max-price" placeholder="До">
+            <button id="search-button">Найти</button>
+            <button id="reset-search-button">Сбросить поиск</button>
+        </div>
+
     <ul id="car-list"></ul>   <!--Пустой список, в который script.js добавит машины-->
     </div>
     <script src="script.js"></script> <!--Подключение JavaScript-файла.-->
