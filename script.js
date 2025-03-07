@@ -5,10 +5,23 @@
 
 
 // Список машин
-const cars = [
+let cars = [
     { brand: "Toyota", model: "Camry", year: 2020, price: 20000 },
     { brand: "BMW", model: "X5", year: 2018, price: 35000 }
 ];
+
+// Функция сохранения данных в localStorage
+function saveData() {
+    localStorage.setItem('cars', JSON.stringify(cars));
+}
+
+// Функция загрузки данных из localStorage
+function loadData() {
+    let stored = localStorage.getItem('cars');
+    if (stored) {
+        cars = JSON.parse(stored);
+    }
+}
 
 // 1. Функция для показа всех машин
 function displayCars() {
@@ -62,13 +75,16 @@ function displayCars() {
 
 // 2. Функция для добавления новой машины
 function addCar(brand, model, year, price) {
-    cars.push({ brand, model, year, price });  // Добавляет объект в массив
-    displayCars(); // Обновляет список
+    cars.push({ brand, model, year, price });
+    saveData(); // Сохраняем данные
+    displayCars();
 }
+
 
 // 3. Функция для удаления машины по индексу
 function deleteCar(index) {
     cars.splice(index, 1); // Удаляет элемент из массива
+    saveData(); // Сохраняем изменения
     displayCars(); // Обновляет отображение списка
 }
 
@@ -209,5 +225,8 @@ document.getElementById("reset-search-button").addEventListener("click", functio
     displayCars();
 });
 
-// Выводим машины на страницу при загрузке
-document.addEventListener("DOMContentLoaded", displayCars);
+// При загрузке страницы сначала загружаем данные из localStorage, затем отображаем список
+document.addEventListener("DOMContentLoaded", function() {
+    loadData();
+    displayCars();
+});

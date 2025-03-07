@@ -8,31 +8,30 @@
 </head>
 <body>
     <div class="panel">      <!-- Контейнер для всей панели с контентом -->
-    <h1>CarShopDS - Поиск автомобилей</h1>  <!-- Заголовок страницы -->
+        <h1>CarShopDS - Поиск автомобилей</h1>  <!-- Заголовок страницы -->
 
-     <!-- Форма для добавления новой машины -->
-     <form id="car-form">
-        <input type="text" id="brand" placeholder="Марка" required>   <!-- Поле ввода марки машины -->
-        <input type="text" id="model" placeholder="Модель" required>  <!-- Поле ввода модели машины -->
-        <input type="number" id="year" placeholder="Год" required>    <!-- Поле ввода года выпуска -->
-        <input type="number" id="price" placeholder="Цена" required>  <!-- Поле ввода цены -->
-        <button type="submit">Добавить машину</button>    <!-- Кнопка для добавления новой машины -->
-    </form>
+        <!-- Форма для добавления новой машины -->
+        <form id="car-form">
+            <input type="text" id="brand" placeholder="Марка" required>   <!-- Поле ввода марки машины -->
+            <input type="text" id="model" placeholder="Модель" required>  <!-- Поле ввода модели машины -->
+            <input type="number" id="year" placeholder="Год" required>    <!-- Поле ввода года выпуска -->
+            <input type="number" id="price" placeholder="Цена" required>  <!-- Поле ввода цены -->
+            <button type="submit">Добавить машину</button>    <!-- Кнопка для добавления новой машины -->
+        </form>
 
         <!-- Элементы управления сортировкой -->
-<div id="sort-controls">
-    <label for="sort-param">Сортировать по: </label>
-    <select id="sort-param">
-        <option value="brand">Марке</option>
-        <option value="model">Модели</option>
-        <option value="year">Году</option>
-        <option value="price">Цене</option>
-    </select>
-    <button id="sort-button">Сортировать</button>
-</div>
+        <div id="sort-controls">
+            <label for="sort-param">Сортировать по: </label>
+            <select id="sort-param">
+                <option value="brand">Марке</option>
+                <option value="model">Модели</option>
+                <option value="year">Году</option>
+                <option value="price">Цене</option>
+            </select>
+            <button id="sort-button">Сортировать</button>
+        </div>
 
-
-            <!-- Элементы управления расширенным поиском -->
+        <!-- Элементы управления расширенным поиском -->
         <div id="search-controls">
             <h2>Расширенный поиск</h2>
             <label for="search-brand">Марка:</label>
@@ -51,8 +50,8 @@
             <button id="reset-search-button">Сбросить поиск</button>
         </div>
 
-    <ul id="car-list"></ul>   <!--Пустой список, в который script.js добавит машины-->
+        <ul id="car-list"></ul>   <!-- Пустой список, в который script.js добавит машины -->
     </div>
-    <script src="script.js"></script> <!--Подключение JavaScript-файла.-->
+    <script src="script.js"></script> <!-- Подключение JavaScript-файла -->
 </body>
 </html>
