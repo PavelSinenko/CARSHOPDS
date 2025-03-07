@@ -10,6 +10,10 @@ let cars = [
     { brand: "BMW", model: "X5", year: 2018, price: 35000 }
 ];
 
+// Глобальная переменная для хранения индекса редактируемой машины
+let currentEditIndex = null;
+
+
 // Функция сохранения данных в localStorage
 function saveData() {
     localStorage.setItem('cars', JSON.stringify(cars));
@@ -37,23 +41,17 @@ function displayCars() {
         editButton.textContent = "Редактировать";
         editButton.style.marginLeft = "10px";
         editButton.onclick = function () {
-            
-            // Используем prompt для получения новых значений
-            let newBrand = prompt("Введите новую марку", car.brand);
-            let newModel = prompt("Введите новую модель", car.model);
-            let newYear = prompt("Введите новый год выпуска", car.year);
-            let newPrice = prompt("Введите новую цену", car.price);
 
-            // Если пользователь ввёл новые значения, обновляем запись
-            if(newBrand && newModel && newYear && newPrice) {
-                cars[index] = {
-                    brand: newBrand,
-                    model: newModel,
-                    year: Number(newYear),
-                    price: Number(newPrice)
-                };
-                displayCars(); // Обновляем отображение списка
-            }
+            // Запоминаем индекс редактируемой машины
+             currentEditIndex = index;
+            // Заполняем поля модального окна текущими данными
+             document.getElementById("edit-brand").value = car.brand;
+             document.getElementById("edit-model").value = car.model;
+             document.getElementById("edit-year").value = car.year;
+             document.getElementById("edit-price").value = car.price;
+            // Показываем модальное окно
+             document.getElementById("edit-modal").style.display = "block";
+            
         };
 
         // Кнопка для удаления машины
@@ -61,6 +59,8 @@ function displayCars() {
         deleteButton.textContent = "Удалить";
         deleteButton.style.marginLeft = "10px";
         deleteButton.onclick = function () {
+            // Запрос подтверждения удаления
+            if (confirm("Вы уверены, что хотите удалить эту машину?"))
             deleteCar(index);
         };
 
@@ -224,6 +224,40 @@ document.getElementById("reset-search-button").addEventListener("click", functio
     document.getElementById('max-price').value = "";
     displayCars();
 });
+
+// 11. Обработчик для отправки формы модального окна
+document.getElementById("edit-form").addEventListener("submit", function(event) {
+    event.preventDefault(); // Предотвращаем перезагрузку страницы
+    // Получаем новые данные из полей модального окна
+    const newBrand = document.getElementById("edit-brand").value;
+    const newModel = document.getElementById("edit-model").value;
+    const newYear = Number(document.getElementById("edit-year").value);
+    const newPrice = Number(document.getElementById("edit-price").value);
+    
+    // Обновляем данные в массиве
+    if (currentEditIndex !== null) {
+        cars[currentEditIndex] = {
+            brand: newBrand,
+            model: newModel,
+            year: newYear,
+            price: newPrice
+        };
+        saveData();     // Сохраняем изменения
+        displayCars();  // Обновляем отображение списка
+    }
+    
+    // Скрываем модальное окно и сбрасываем currentEditIndex
+    document.getElementById("edit-modal").style.display = "none";
+    currentEditIndex = null;
+});
+
+// 12. Обработчик для кнопки «Отмена» в модальном окне
+document.getElementById("cancel-edit").addEventListener("click", function() {
+    // Скрываем модальное окно и сбрасываем currentEditIndex
+    document.getElementById("edit-modal").style.display = "none";
+    currentEditIndex = null;
+});
+
 
 // При загрузке страницы сначала загружаем данные из localStorage, затем отображаем список
 document.addEventListener("DOMContentLoaded", function() {

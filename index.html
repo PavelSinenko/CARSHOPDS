@@ -50,6 +50,24 @@
             <button id="reset-search-button">Сбросить поиск</button>
         </div>
 
+          <!-- Модальное окно для редактирования автомобиля -->
+        <div id="edit-modal" class="modal">
+           <div class="modal-content">
+            <h2>Редактировать автомобиль</h2>
+              <form id="edit-form">
+              <input type="text" id="edit-brand" placeholder="Марка" required>
+              <input type="text" id="edit-model" placeholder="Модель" required>
+              <input type="number" id="edit-year" placeholder="Год" required>
+              <input type="number" id="edit-price" placeholder="Цена" required>
+           <div class="modal-buttons">
+              <button type="submit">Сохранить</button>
+              <button type="button" id="cancel-edit">Отмена</button>
+           </div>
+          </form>
+         </div>
+        </div>
+  
+
         <ul id="car-list"></ul>   <!-- Пустой список, в который script.js добавит машины -->
     </div>
     <script src="script.js"></script> <!-- Подключение JavaScript-файла -->
