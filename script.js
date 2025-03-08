@@ -27,6 +27,17 @@ function loadData() {
     }
 }
 
+// Функция для показа уведомлений
+function showNotification(message) {
+    const notification = document.getElementById("notification");
+    notification.style.display = "block";
+    notification.textContent = message;
+    // Через 3 секунды скрываем уведомление
+    setTimeout(() => {
+        notification.style.display = "none";
+    }, 3000);
+}
+
 // 1. Функция для показа всех машин
 function displayCars() {
     let carList = document.getElementById("car-list");    //Получаем ссылку на HTML-элемент <ul> с id="car-list", в который будем выводить список машин.
@@ -78,6 +89,7 @@ function addCar(brand, model, year, price) {
     cars.push({ brand, model, year, price });
     saveData(); // Сохраняем данные
     displayCars();
+    showNotification("Машина успешно добавлена!");
 }
 
 
@@ -86,6 +98,7 @@ function deleteCar(index) {
     cars.splice(index, 1); // Удаляет элемент из массива
     saveData(); // Сохраняем изменения
     displayCars(); // Обновляет отображение списка
+    showNotification("Машина удалена!");
 }
 
 
@@ -192,15 +205,21 @@ function displayCarsFiltered(filteredCars) {
 // 7. Обработчик отправки формы для добавления новой машины
 document.getElementById('car-form').addEventListener('submit', function(event) {
     event.preventDefault(); // Отменяет стандартное поведение формы (перезагрузку страницы)
+
     // Получаем значения из полей ввода
     const brand = document.getElementById('brand').value;
     const model = document.getElementById('model').value;
     const year = Number(document.getElementById('year').value);
     const price = Number(document.getElementById('price').value);
-    // Добавляем новую машину и обновляем отображение
-    addCar(brand, model, year, price);
-    // Очищаем форму после отправки
-    this.reset();
+
+     // Простая валидация
+     if (!brand || !model || isNaN(year) || isNaN(price) || year <= 0 || price <= 0) {
+        showNotification("Пожалуйста, введите корректные данные для всех полей.");
+        return; // Прерываем выполнение, если данные некорректны
+    }
+    
+    addCar(brand, model, year, price); // Добавляем новую машину и обновляем отображение
+    this.reset(); // Очищаем форму после отправки
 });
 
 // 8. Обработчик сортировки по выбранному параметру
@@ -244,6 +263,7 @@ document.getElementById("edit-form").addEventListener("submit", function(event) 
         };
         saveData();     // Сохраняем изменения
         displayCars();  // Обновляем отображение списка
+        showNotification("Машина обновлена!");
     }
     
     // Скрываем модальное окно и сбрасываем currentEditIndex
