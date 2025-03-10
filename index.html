@@ -1,24 +1,30 @@
-<!DOCTYPE html>   <!-- Определяет, что документ является HTML5 -->
-<html lang="ru">  <!-- Устанавливает язык документа как русский -->
+<!DOCTYPE html> <!-- Определяет, что документ является HTML5 -->
+<html lang="ru"> <!-- Устанавливает язык документа как русский -->
 <head>
-    <meta charset="UTF-8">     <!-- Указывает кодировку символов (UTF-8 поддерживает русский язык) -->
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">  <!-- Адаптивность для мобильных устройств -->
-    <title>CarShopDS</title>    <!-- Заголовок страницы, отображается на вкладке браузера -->
-    <link rel="stylesheet" href="style.css">  <!-- Подключение файла стилей CSS -->
+    <meta charset="UTF-8"> <!-- Указывает кодировку символов (UTF-8 поддерживает русский язык) -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"> <!-- Адаптивность для мобильных устройств -->
+    <title>CarShopDS</title> <!-- Заголовок страницы -->
+    <link rel="stylesheet" href="style.css"> <!-- Подключение файла стилей -->
 </head>
 <body>
     <div id="notification" style="display: none;"></div>
 
-    <div class="panel">      <!-- Контейнер для всей панели с контентом -->
-        <h1>CarShopDS - Поиск автомобилей</h1>  <!-- Заголовок страницы -->
+    <div class="panel">
+        <h1>CarShopDS - Поиск автомобилей</h1>
 
-        <!-- Форма для добавления новой машины -->
+        <!-- Форма для добавления новой машины с расширенными полями -->
         <form id="car-form">
-            <input type="text" id="brand" placeholder="Марка" required>   <!-- Поле ввода марки машины -->
-            <input type="text" id="model" placeholder="Модель" required>  <!-- Поле ввода модели машины -->
-            <input type="number" id="year" placeholder="Год" required>    <!-- Поле ввода года выпуска -->
-            <input type="number" id="price" placeholder="Цена" required>  <!-- Поле ввода цены -->
-            <button type="submit">Добавить машину</button>    <!-- Кнопка для добавления новой машины -->
+            <input type="text" id="brand" placeholder="Марка" required>
+            <input type="text" id="model" placeholder="Модель" required>
+            <input type="number" id="year" placeholder="Год" required>
+            <input type="number" id="price" placeholder="Цена" required>
+            <input type="text" id="code" placeholder="Код марки" required>
+            <input type="text" id="country" placeholder="Страна" required>
+            <input type="text" id="engineType" placeholder="Тип двигателя" required>
+            <input type="number" id="fuelConsumption" placeholder="Расход (л/100км)" required>
+            <input type="number" id="reliability" placeholder="Надежность (лет)" required>
+            <input type="number" id="comfort" placeholder="Комфортность (баллы)" required>
+            <button type="submit">Добавить машину</button>
         </form>
 
         <!-- Элементы управления сортировкой -->
@@ -29,6 +35,9 @@
                 <option value="model">Модели</option>
                 <option value="year">Году</option>
                 <option value="price">Цене</option>
+                <option value="fuelConsumption">Расходу</option>
+                <option value="reliability">Надежности</option>
+                <option value="comfort">Комфортности</option>
             </select>
             <button id="sort-button">Сортировать</button>
         </div>
@@ -48,29 +57,48 @@
             <input type="number" id="min-price" placeholder="От">
             <label for="max-price">Цена до:</label>
             <input type="number" id="max-price" placeholder="До">
+            <label for="search-engine">Тип двигателя:</label>
+            <input type="text" id="search-engine" placeholder="Введите тип">
+            <label for="min-fuel">Расход от:</label>
+            <input type="number" id="min-fuel" placeholder="От">
+            <label for="max-fuel">Расход до:</label>
+            <input type="number" id="max-fuel" placeholder="До">
+            <label for="min-reliability">Надежность от:</label>
+            <input type="number" id="min-reliability" placeholder="От">
+            <label for="max-reliability">Надежность до:</label>
+            <input type="number" id="max-reliability" placeholder="До">
+            <label for="min-comfort">Комфорт от:</label>
+            <input type="number" id="min-comfort" placeholder="От">
+            <label for="max-comfort">Комфорт до:</label>
+            <input type="number" id="max-comfort" placeholder="До">
             <button id="search-button">Найти</button>
             <button id="reset-search-button">Сбросить поиск</button>
         </div>
 
-          <!-- Модальное окно для редактирования автомобиля -->
+        <!-- Модальное окно для редактирования автомобиля -->
         <div id="edit-modal" class="modal">
            <div class="modal-content">
-            <h2>Редактировать автомобиль</h2>
+              <h2>Редактировать автомобиль</h2>
               <form id="edit-form">
-              <input type="text" id="edit-brand" placeholder="Марка" required>
-              <input type="text" id="edit-model" placeholder="Модель" required>
-              <input type="number" id="edit-year" placeholder="Год" required>
-              <input type="number" id="edit-price" placeholder="Цена" required>
-           <div class="modal-buttons">
-              <button type="submit">Сохранить</button>
-              <button type="button" id="cancel-edit">Отмена</button>
+                 <input type="text" id="edit-brand" placeholder="Марка" required>
+                 <input type="text" id="edit-model" placeholder="Модель" required>
+                 <input type="number" id="edit-year" placeholder="Год" required>
+                 <input type="number" id="edit-price" placeholder="Цена" required>
+                 <input type="text" id="edit-code" placeholder="Код марки" required>
+                 <input type="text" id="edit-country" placeholder="Страна" required>
+                 <input type="text" id="edit-engineType" placeholder="Тип двигателя" required>
+                 <input type="number" id="edit-fuelConsumption" placeholder="Расход (л/100км)" required>
+                 <input type="number" id="edit-reliability" placeholder="Надежность (лет)" required>
+                 <input type="number" id="edit-comfort" placeholder="Комфортность (баллы)" required>
+                 <div class="modal-buttons">
+                    <button type="submit">Сохранить</button>
+                    <button type="button" id="cancel-edit">Отмена</button>
+                 </div>
+              </form>
            </div>
-          </form>
-         </div>
         </div>
   
-
-        <ul id="car-list"></ul>   <!-- Пустой список, в который script.js добавит машины -->
+        <ul id="car-list"></ul> <!-- Пустой список, куда script.js добавит машины -->
     </div>
     <script src="script.js"></script> <!-- Подключение JavaScript-файла -->
 </body>
