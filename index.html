@@ -6,6 +6,14 @@
     <title>CarShopDS</title> <!-- Заголовок страницы -->
     <link rel="stylesheet" href="style.css"> <!-- Подключение файла стилей -->
 </head>
+
+<!-- Элементы для работы с файлами -->
+<div id="file-controls">
+    <input type="file" id="file-input" accept="application/json">
+    <button id="load-file-button">Загрузить данные из файла</button>
+    <button id="save-file-button">Сохранить данные в файл</button>
+</div>
+
 <body>
     <div id="notification" style="display: none;"></div>
 
@@ -97,6 +105,7 @@
               </form>
            </div>
         </div>
+        
   
         <ul id="car-list"></ul> <!-- Пустой список, куда script.js добавит машины -->
     </div>

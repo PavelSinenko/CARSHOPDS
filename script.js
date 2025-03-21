@@ -39,12 +39,52 @@ function saveData() {
     localStorage.setItem('cars', JSON.stringify(cars));
 }
 
+// Функция чтения данных из файла
+function readDataFromFile(file) {
+    const reader = new FileReader();
+    reader.onload = function(event) {
+        try {
+            const jsonData = JSON.parse(event.target.result);
+            if (Array.isArray(jsonData)) {
+                cars = jsonData;
+                saveData(); // Сохраняем данные в localStorage
+                displayCars();
+                showNotification("Данные успешно загружены из файла!");
+            } else {
+                showNotification("Неверный формат файла!");
+                console.error("Ошибка: JSON-файл не является массивом объектов", jsonData);
+            }
+        } catch (error) {
+            showNotification("Ошибка при чтении файла!");
+            console.error("Ошибка чтения файла:", error);  // <-- добавленный лог
+        }
+    };
+    reader.readAsText(file);
+}
+
+
 // Функция загрузки данных из localStorage
 function loadData() {
     let stored = localStorage.getItem('cars');
     if (stored) {
         cars = JSON.parse(stored);
     }
+}
+
+// Функция записи данных в файл
+function writeDataToFile() {
+    const dataStr = JSON.stringify(cars, null, 2);
+    const blob = new Blob([dataStr], { type: "application/json" });
+    const url = URL.createObjectURL(blob);
+
+    const a = document.createElement("a");
+    a.href = url;
+    a.download = "cars_data.json"; 
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+    URL.revokeObjectURL(url);
+    showNotification("Данные успешно сохранены в файл!");
 }
 
 // Функция для показа уведомлений
@@ -258,6 +298,21 @@ document.getElementById("sort-button").addEventListener("click", function() {
 document.getElementById("search-button").addEventListener("click", function() {
     searchCars();
 });
+
+document.getElementById("load-file-button").addEventListener("click", function() {
+    const fileInput = document.getElementById("file-input");
+    if (fileInput.files.length > 0) {
+        const file = fileInput.files[0];
+        readDataFromFile(file);
+    } else {
+        showNotification("Выберите файл для загрузки!");
+    }
+});
+
+document.getElementById("save-file-button").addEventListener("click", function() {
+    writeDataToFile();
+});
+
 
 // 10. Обработчик сброса поиска: очищает поля поиска и отображает полный список
 document.getElementById("reset-search-button").addEventListener("click", function() {
