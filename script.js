@@ -320,6 +320,24 @@ function displayCarsFiltered(filteredCars) {
     });
 }
 
+// Функция для выхода без сохранения изменений
+function exitWithoutSaving() {
+    if (confirm("Вы действительно хотите выйти без сохранения изменений?")) {
+        localStorage.removeItem('cars'); // Удаляем данные
+        location.reload(); // Перезагружаем страницу
+        document.body.innerHTML = "<h1>Программа завершена без сохранения изменений.</h1>";
+    }
+}
+
+// Функция для выхода с сохранением изменений
+function exitWithSaving() {
+    if (confirm("Вы действительно хотите выйти с сохранением изменений?")) {
+        saveData(); // Сохраняем данные
+        location.reload(); // Перезагружаем страницу
+        document.body.innerHTML = "<h1>Программа завершена с сохранением изменений.</h1>";
+    }
+}
+
 // 7. Обработчик отправки формы для добавления новой машины
 document.getElementById('car-form').addEventListener('submit', function(event) {
     event.preventDefault();
@@ -432,6 +450,10 @@ document.getElementById("cancel-edit").addEventListener("click", function() {
 
 // Обработчик для кнопки специальных функций
 document.getElementById("special-button").addEventListener("click", specialSearchAndExport);
+
+// Обработчики событий для кнопок выхода
+document.getElementById("exit-no-save").addEventListener("click", exitWithoutSaving);
+document.getElementById("exit-save").addEventListener("click", exitWithSaving);
 
 
 // При загрузке страницы сначала загружаем данные из localStorage, затем отображаем список
