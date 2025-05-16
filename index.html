@@ -1,0 +1,123 @@
+<!DOCTYPE html> <!-- Определяет, что документ является HTML5 -->
+<html lang="ru"> <!-- Устанавливает язык документа как русский -->
+<head>
+    <meta charset="UTF-8"> <!-- Указывает кодировку символов (UTF-8 поддерживает русский язык) -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"> <!-- Адаптивность для мобильных устройств -->
+    <title>CarShopDS</title> <!-- Заголовок страницы -->
+    <link rel="stylesheet" href="style.css"> <!-- Подключение файла стилей -->
+</head>
+
+<!-- Элементы для работы с файлами -->
+<div id="file-controls">
+    <input type="file" id="file-input" accept="application/json">
+    <button id="load-file-button">Загрузить данные из файла</button>
+    <button id="save-file-button">Сохранить данные в файл</button>
+</div>
+
+<body>
+    <div id="notification" style="display: none;"></div>
+
+    <div class="panel">
+        <h1>CarShopDS - Поиск автомобилей</h1>
+
+        <!-- Форма для добавления новой машины с расширенными полями -->
+        <form id="car-form">
+            <input type="text" id="brand" placeholder="Марка" required>
+            <input type="text" id="model" placeholder="Модель" required>
+            <input type="number" id="year" placeholder="Год" required>
+            <input type="number" id="price" placeholder="Цена" required>
+            <input type="text" id="code" placeholder="Код марки" required>
+            <input type="text" id="country" placeholder="Страна" required>
+            <input type="text" id="engineType" placeholder="Тип двигателя" required>
+            <input type="number" id="fuelConsumption" placeholder="Расход (л/100км)" required>
+            <input type="number" id="reliability" placeholder="Надежность (лет)" required>
+            <input type="number" id="comfort" placeholder="Комфортность (баллы)" required>
+            <button type="submit">Добавить машину</button>
+        </form>
+
+        <!-- Элементы управления сортировкой -->
+        <div id="sort-controls">
+            <label for="sort-param">Сортировать по: </label>
+            <select id="sort-param">
+                <option value="brand">Марке</option>
+                <option value="model">Модели</option>
+                <option value="year">Году</option>
+                <option value="price">Цене</option>
+                <option value="fuelConsumption">Расходу</option>
+                <option value="reliability">Надежности</option>
+                <option value="comfort">Комфортности</option>
+            </select>
+            <button id="sort-button">Сортировать</button>
+        </div>
+
+        <!-- Элементы управления расширенным поиском -->
+        <div id="search-controls">
+            <h2>Расширенный поиск</h2>
+            <label for="search-brand">Марка:</label>
+            <input type="text" id="search-brand" placeholder="Введите марку">
+            <label for="search-model">Модель:</label>
+            <input type="text" id="search-model" placeholder="Введите модель">
+            <label for="min-year">Год от:</label>
+            <input type="number" id="min-year" placeholder="От">
+            <label for="max-year">Год до:</label>
+            <input type="number" id="max-year" placeholder="До">
+            <label for="min-price">Цена от:</label>
+            <input type="number" id="min-price" placeholder="От">
+            <label for="max-price">Цена до:</label>
+            <input type="number" id="max-price" placeholder="До">
+            <label for="search-engine">Тип двигателя:</label>
+            <input type="text" id="search-engine" placeholder="Введите тип">
+            <label for="min-fuel">Расход от:</label>
+            <input type="number" id="min-fuel" placeholder="От">
+            <label for="max-fuel">Расход до:</label>
+            <input type="number" id="max-fuel" placeholder="До">
+            <label for="min-reliability">Надежность от:</label>
+            <input type="number" id="min-reliability" placeholder="От">
+            <label for="max-reliability">Надежность до:</label>
+            <input type="number" id="max-reliability" placeholder="До">
+            <label for="min-comfort">Комфорт от:</label>
+            <input type="number" id="min-comfort" placeholder="От">
+            <label for="max-comfort">Комфорт до:</label>
+            <input type="number" id="max-comfort" placeholder="До">
+            <button id="search-button">Найти</button>
+            <button id="reset-search-button">Сбросить поиск</button>
+        </div>
+
+        
+
+
+        <!-- Модальное окно для редактирования автомобиля -->
+        <div id="edit-modal" class="modal">
+           <div class="modal-content">
+              <h2>Редактировать автомобиль</h2>
+              <form id="edit-form">
+                 <input type="text" id="edit-brand" placeholder="Марка" required>
+                 <input type="text" id="edit-model" placeholder="Модель" required>
+                 <input type="number" id="edit-year" placeholder="Год" required>
+                 <input type="number" id="edit-price" placeholder="Цена" required>
+                 <input type="text" id="edit-code" placeholder="Код марки" required>
+                 <input type="text" id="edit-country" placeholder="Страна" required>
+                 <input type="text" id="edit-engineType" placeholder="Тип двигателя" required>
+                 <input type="number" id="edit-fuelConsumption" placeholder="Расход (л/100км)" required>
+                 <input type="number" id="edit-reliability" placeholder="Надежность (лет)" required>
+                 <input type="number" id="edit-comfort" placeholder="Комфортность (баллы)" required>
+                 <div class="modal-buttons">
+                    <button type="submit">Сохранить</button>
+                    <button type="button" id="cancel-edit">Отмена</button>
+                 </div>
+              </form>
+           </div>
+        </div>
+
+        <!-- Блок для выхода из программы -->
+        <div id="exit-controls">
+          <button id="exit-no-save">Выход без сохранения</button>
+          <button id="exit-save">Выход с сохранением</button>
+        </div>
+
+        
+        <ul id="car-list"></ul> <!-- Пустой список, куда script.js добавит машины -->
+    </div>
+    <script src="script.js"></script> <!-- Подключение JavaScript-файла -->
+</body>
+</html>
