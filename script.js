@@ -1,4 +1,4 @@
-// Будущий проект по практике 
+// Проект по практике 
 // Этот проект — простое веб-приложение для работы со списком автомобилей. 
 // Пользователь может добавлять, редактировать, удалять, сортировать машины через форму, после чего список автоматически обновляется. 
 // Также реализован поиск по параметрам автомобиля, включая дополнительные характеристики.
@@ -98,61 +98,7 @@ function showNotification(message) {
     }, 3000);
 }
 
-// Функция для реализации специальных функций
-function specialSearchAndExport() {
-    // Запрашиваем требования покупателя
-    let maxPrice = Number(prompt("Введите максимальную стоимость автомобиля:"));
-    let maxFuel = Number(prompt("Введите максимальный расход топлива (л/100км):"));
-    
-    // Если введены некорректные значения, прерываем выполнение
-    if (isNaN(maxPrice) || isNaN(maxFuel) || maxPrice <= 0 || maxFuel <= 0) {
-        showNotification("Пожалуйста, введите корректные значения для специальных требований.");
-        return;
-    }
-    
-    // Фильтруем автомобили, удовлетворяющие требованиям покупателя
-    let results = cars.filter(car => car.price <= maxPrice && car.fuelConsumption <= maxFuel);
-    
-    // Если результаты пусты, уведомляем пользователя
-    if (results.length === 0) {
-        showNotification("Нет автомобилей, удовлетворяющих заданным требованиям.");
-        return;
-    }
-    
-    // Отображаем результаты в отдельном контейнере
-    let specialResults = document.getElementById("special-results");
-    specialResults.innerHTML = "<h2>Результаты специальных функций</h2>";
-    let list = document.createElement("ul");
-    results.forEach(car => {
-        let li = document.createElement("li");
-        li.textContent = `${car.brand} ${car.model} (${car.code}), ${car.year} - $${car.price}; Страна: ${car.country}; Двигатель: ${car.engineType}; Расход: ${car.fuelConsumption}л/100км; Надежность: ${car.reliability} лет; Комфорт: ${car.comfort}/10`;
-        list.appendChild(li);
-    });
-    specialResults.appendChild(list);
-    
-    // Спрашиваем, нужно ли сохранить результаты в файл
-    if (confirm("Сохранить результаты поиска в текстовый файл?")) {
-        exportResultsToTextFile(results);
-    }
-}
 
-// Функция для экспорта результатов в текстовый файл
-function exportResultsToTextFile(results) {
-    let text = "Результаты поиска автомобилей:\n\n";
-    results.forEach(car => {
-        text += `${car.brand} ${car.model} (${car.code}), ${car.year} - $${car.price}; Страна: ${car.country}; Двигатель: ${car.engineType}; Расход: ${car.fuelConsumption}л/100км; Надежность: ${car.reliability} лет; Комфорт: ${car.comfort}/10\n`;
-    });
-    const blob = new Blob([text], { type: "text/plain" });
-    const url = URL.createObjectURL(blob);
-    const a = document.createElement("a");
-    a.href = url;
-    a.download = "special_search_results.txt";
-    document.body.appendChild(a);
-    a.click();
-    document.body.removeChild(a);
-    URL.revokeObjectURL(url);
-    showNotification("Результаты сохранены в файл!");
-}
 
 // 1. Функция для показа всех машин
 function displayCars() {
@@ -448,8 +394,6 @@ document.getElementById("cancel-edit").addEventListener("click", function() {
     currentEditIndex = null;
 });
 
-// Обработчик для кнопки специальных функций
-document.getElementById("special-button").addEventListener("click", specialSearchAndExport);
 
 // Обработчики событий для кнопок выхода
 document.getElementById("exit-no-save").addEventListener("click", exitWithoutSaving);
